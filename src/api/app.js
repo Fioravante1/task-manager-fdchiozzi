@@ -7,6 +7,6 @@ const tasksController = require('../controllers/tasksController');
 
 app.use(bodyParser.json());
 
-app.use('/', tasksController);
+app.use('/tasks', tasksController);
 
 module.exports = app;
