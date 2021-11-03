@@ -17,7 +17,7 @@ const connection = async () => {
   db
     ? Promise.resolve(db)
     : db = await MongoClient.connect(MONGO_DB, options);
-  return db.db('tasks');
+  return db.db('ManagerTasks');
 };
 
 module.exports = connection;
