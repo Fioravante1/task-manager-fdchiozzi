@@ -38,4 +38,10 @@ tasksRouter.put('/:id', rescue(async (req, res) => {
   return res.status(StatusCodes.OK).json(card);
 }));
 
+tasksRouter.delete('/:id', rescue(async (req, res) => {
+  const { id } = req.params;
+  const task = await Service.deleteTask(id);
+  return res.status(StatusCodes.NO_CONTENT).json(task);
+}));
+
 module.exports = tasksRouter;
