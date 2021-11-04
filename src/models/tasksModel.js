@@ -1,4 +1,13 @@
+const { ObjectId } = require('mongodb');
 const connection = require('./connection');
+
+const findById = async (id) => {
+  const db = await connection();
+  if (!ObjectId.isValid(id)) {
+    return null;
+  }
+  return db.collection('Tasks').findOne(ObjectId(id));
+};
 
 const getAll = async () => {
   const db = await connection();
@@ -21,7 +30,18 @@ const create = async (tasks) => {
   };
 };
 
+const update = async (id, task) => {
+  const db = await connection();
+  if (!ObjectId.isValid(id)) {
+    return null;
+  }
+  await db.collection('Tasks').updateOne({ _id: ObjectId(id) }, { $set: task });
+  return findById(id);
+};
+
 module.exports = {
   getAll,
   create,
+  update,
+  findById,
 };
