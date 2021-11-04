@@ -1,11 +1,12 @@
 const Model = require('../models/tasksModel');
+const Error = require('../helpers/errors');
 
 const findById = async (id) => {
-  const card = await Model.findById(id);
-  if (!card) {
-    return null;
+  const task = await Model.findById(id);
+  if (!task) {
+    return Error.notFound('Tarefa não encontrada');
   }
-  return card;
+  return task;
 };
 
 const getAll = async () => {
@@ -19,13 +20,13 @@ const create = async (tasks) => {
 };
 
 const update = async (id, task) => {
-  const cardUpdate = await Model.update(id, task);
-  return cardUpdate;
+  const taskUpdate = await Model.update(id, task);
+  return taskUpdate;
 };
 
 const deleteTask = async (id) => {
-  const card = await Model.deleteTask(id);
-  return card;
+  const task = await Model.deleteTask(id);
+  return task;
 };
 
 module.exports = {
