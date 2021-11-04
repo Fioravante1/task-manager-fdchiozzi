@@ -14,17 +14,17 @@ const getAll = async () => {
   return db.collection('Tasks').find().toArray();
 };
 
-const create = async (tasks) => {
+const create = async (task) => {
   const {
-    task, description, status, date,
-  } = tasks;
+    tasks, description, taskStatus, date,
+  } = task;
   const db = await connection();
-  const newTask = await db.collection('Tasks').insertOne(tasks);
+  const newTask = await db.collection('Tasks').insertOne(task);
   const { insertedId } = newTask;
   return {
-    task,
+    tasks,
     description,
-    status,
+    taskStatus,
     date,
     insertedId,
   };
