@@ -23,9 +23,15 @@ const update = async (id, task) => {
   return cardUpdate;
 };
 
+const deleteTask = async (id) => {
+  const card = await Model.deleteTask(id);
+  return card;
+};
+
 module.exports = {
   getAll,
   create,
   update,
   findById,
+  deleteTask,
 };
