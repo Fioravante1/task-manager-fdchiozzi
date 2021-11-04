@@ -18,7 +18,14 @@ const create = async (tasks) => {
   return newTasks;
 };
 
+const update = async (id, task) => {
+  const cardUpdate = await Model.update(id, task);
+  return cardUpdate;
+};
+
 module.exports = {
   getAll,
   create,
+  update,
+  findById,
 };
