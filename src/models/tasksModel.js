@@ -19,8 +19,8 @@ const create = async (tasks) => {
     task, description, status, date,
   } = tasks;
   const db = await connection();
-  const newCard = await db.collection('Tasks').insertOne(tasks);
-  const { insertedId } = newCard;
+  const newTask = await db.collection('Tasks').insertOne(tasks);
+  const { insertedId } = newTask;
   return {
     task,
     description,
@@ -44,9 +44,9 @@ const deleteTask = async (id) => {
   if (!ObjectId.isValid(id)) {
     return null;
   }
-  const card = await findById(id);
+  const task = await findById(id);
   db.collection('Tasks').deleteOne({ _id: ObjectId(id) });
-  return card;
+  return task;
 };
 
 module.exports = {
