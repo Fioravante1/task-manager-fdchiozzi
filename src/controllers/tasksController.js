@@ -5,6 +5,7 @@ const { StatusCodes } = require('http-status-codes');
 const Service = require('../services/tasksService');
 
 const tasksRouter = express.Router();
+const validateTasks = require('../middlewares/tasksMiddlewares');
 
 tasksRouter.get('/', rescue(async (req, res) => {
   const tasksAll = await Service.getAll();
@@ -20,17 +21,19 @@ tasksRouter.get('/:id', rescue(async (req, res) => {
   return res.status(StatusCodes.OK).json(card);
 }));
 
-tasksRouter.post('/', rescue(async (req, res) => {
-  const date = new Date();
-  const { task, description, status } = req.body;
-  const tasks = await Service.create({
-    task,
-    description,
-    status,
-    date: `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`,
-  });
-  return res.status(StatusCodes.CREATED).json({ tasks });
-}));
+tasksRouter.post('/',
+  validateTasks,
+  rescue(async (req, res) => {
+    const date = new Date();
+    const { tasks, description, taskStatus } = req.body;
+    const task = await Service.create({
+      tasks,
+      description,
+      taskStatus,
+      date: `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`,
+    });
+    return res.status(StatusCodes.CREATED).json({ task });
+  }));
 
 tasksRouter.put('/:id', rescue(async (req, res) => {
   const { id } = req.params;
