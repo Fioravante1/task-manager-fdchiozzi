@@ -8,4 +8,5 @@ const error = (code, message) => ({
 
 module.exports = {
   badRequest: (message) => error(StatusCodes.BAD_REQUEST, message),
+  notFound: (message) => error(StatusCodes.NOT_FOUND, message),
 };
