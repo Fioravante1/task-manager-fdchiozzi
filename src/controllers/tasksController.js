@@ -14,11 +14,11 @@ tasksRouter.get('/', rescue(async (req, res) => {
 
 tasksRouter.get('/:id', rescue(async (req, res) => {
   const { id } = req.params;
-  const card = await Service.findById(id);
-  if (!card) {
+  const task = await Service.findById(id);
+  if (!task) {
     return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Tarefa não encontrada' });
   }
-  return res.status(StatusCodes.OK).json(card);
+  return res.status(StatusCodes.OK).json(task);
 }));
 
 tasksRouter.post('/',
@@ -35,11 +35,13 @@ tasksRouter.post('/',
     return res.status(StatusCodes.CREATED).json({ task });
   }));
 
-tasksRouter.put('/:id', rescue(async (req, res) => {
-  const { id } = req.params;
-  const card = await Service.update(id, req.body);
-  return res.status(StatusCodes.OK).json(card);
-}));
+tasksRouter.put('/:id',
+  validateTasks,
+  rescue(async (req, res) => {
+    const { id } = req.params;
+    const task = await Service.update(id, req.body);
+    return res.status(StatusCodes.OK).json(task);
+  }));
 
 tasksRouter.delete('/:id', rescue(async (req, res) => {
   const { id } = req.params;
