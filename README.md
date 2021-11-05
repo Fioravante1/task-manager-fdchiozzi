@@ -28,6 +28,11 @@ Faça um start no projeto
 ```bash
     npm start
 ```
+Use o Postaman ou Insomnia para ver a api em pleno funcionamento!
+
+Use /tasks no final do seu host. Ex: http://localhost:3001/tasks
+
+Faça buscas, deletes e updates.
 
 Link da API:  [Manager Task FDChiozzi](https://manager-tasks-fdchiozzi.herokuapp.com/tasks)
 
