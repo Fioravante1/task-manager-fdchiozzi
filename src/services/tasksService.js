@@ -20,6 +20,10 @@ const create = async (tasks) => {
 };
 
 const update = async (id, task) => {
+  const taskId = await findById(id);
+  if (!taskId) {
+    return Error.notFound('Tarefa não encontrada');
+  }
   const taskUpdate = await Model.update(id, task);
   return taskUpdate;
 };
