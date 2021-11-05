@@ -40,6 +40,9 @@ tasksRouter.put('/:id',
   rescue(async (req, res) => {
     const { id } = req.params;
     const task = await Service.update(id, req.body);
+    if (task.isError) {
+      return res.status(task.code).json({ message: task.message });
+    }
     return res.status(StatusCodes.OK).json(task);
   }));
 
